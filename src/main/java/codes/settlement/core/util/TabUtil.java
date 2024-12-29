@@ -2,12 +2,15 @@ package codes.settlement.core.util;
 
 import codes.settlement.core.Core;
 import net.minecraft.server.v1_8_R3.ChatComponentText;
+import net.minecraft.server.v1_8_R3.IChatBaseComponent;
 import net.minecraft.server.v1_8_R3.PacketPlayOutPlayerListHeaderFooter;
+import net.minecraft.server.v1_8_R3.PlayerConnection;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import java.lang.reflect.Field;
 
 public class TabUtil {
+
     public static void setHeaderFooter(Player player) {
 		PacketPlayOutPlayerListHeaderFooter packet = new PacketPlayOutPlayerListHeaderFooter();
 
@@ -18,8 +21,8 @@ public class TabUtil {
 			Field b = packet.getClass().getDeclaredField("b");
 			b.setAccessible(true);
 
-			a.set(packet, new ChatComponentText(Core.getInstance().getTabHeader()));
-			b.set(packet, new ChatComponentText(Core.getInstance().getTabFooter()));
+			a.set(packet, new ChatComponentText(Core.getInstance().tabHeader));
+			b.set(packet, new ChatComponentText(Core.getInstance().tabFooter));
 
 			((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
 		} catch (Exception e) {
