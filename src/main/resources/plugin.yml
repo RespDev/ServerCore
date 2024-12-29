@@ -1,5 +1,5 @@
 name: ServerCore
-main: codes.settlement.Core
+main: codes.settlement.core.Core
 version: 1.0.0
 author: Heslop, RespDev
 description: Core Server Plugin
