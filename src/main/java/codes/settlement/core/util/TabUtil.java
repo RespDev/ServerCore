@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import java.lang.reflect.Field;
 
 public class TabUtil {
-    public void setHeaderFooter(Player player) {
+    public static void setHeaderFooter(Player player) {
 		PacketPlayOutPlayerListHeaderFooter packet = new PacketPlayOutPlayerListHeaderFooter();
 
 		try {

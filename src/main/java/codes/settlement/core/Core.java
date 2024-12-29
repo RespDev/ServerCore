@@ -1,7 +1,9 @@
 package codes.settlement.core;
 
+import codes.settlement.core.listeners.PlayerLoad;
 import lombok.Getter;
 import lombok.Setter;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -32,7 +34,7 @@ public class Core extends JavaPlugin {
     }
 
     private void registerListeners() {
-
+        Bukkit.getPluginManager().registerEvents(new PlayerLoad(), getInstance());
     }
 
     public static Core getInstance(){
