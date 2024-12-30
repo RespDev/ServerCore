@@ -27,7 +27,7 @@ public class SqlUtil {
             try {
                 if (!isConnected()) {
                     connection = DriverManager.getConnection(
-                            "jdbc:mysql://" + host + ":" + port + "/" + database + "?useSSL=false&autoReconnect=true", username, password);
+                            "jdbc:mysql://" + host + ":" + port + "/" + database + "?useSSL=true&autoReconnect=true", username, password);
                     LoggingUtil.logMessage("Database", "&aSuccessfully connected to the database!");
 
                     // Create tables if they don't already exist
@@ -82,7 +82,7 @@ public class SqlUtil {
                 UUID uuid = p.getUniqueId();
                 if (!doesExist(uuid)) {
                     PreparedStatement statement2 = getConnection()
-                            .prepareStatement("INSERT IGNORE profile (UUID,USERNAME,RANK,GEMS,ONLINE) VALUES (?,?,?,?,?)");
+                            .prepareStatement("INSERT IGNORE profile (USERNAME,UUID,RANK,GEMS,ONLINE) VALUES (?,?,?,?,?)");
                     statement2.setString(1, uuid.toString());
                     statement2.setString(2, p.getName());
                     statement2.setString(3, "DEFAULT");

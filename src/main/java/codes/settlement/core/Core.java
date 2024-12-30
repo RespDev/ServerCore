@@ -34,10 +34,7 @@ public class Core extends JavaPlugin {
         try {
             new SqlUtil().connect();
             LoggingUtil.logMessage("Database", "&aSUCCESS &fnow connected to the database!");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            LoggingUtil.logMessage("Database", "&cFAILED &fto connect to the database!");
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             LoggingUtil.logMessage("Database", "&cFAILED &fto connect to the database!");
         }
