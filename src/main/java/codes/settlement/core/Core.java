@@ -1,5 +1,6 @@
 package codes.settlement.core;
 
+import codes.settlement.core.listeners.Chat;
 import codes.settlement.core.listeners.PlayerLoad;
 import codes.settlement.core.util.LoggingUtil;
 import codes.settlement.core.util.SqlUtil;
@@ -57,6 +58,7 @@ public class Core extends JavaPlugin {
     private void registerListeners() {
         LoggingUtil.logMessage("Core", "&fAttempting to register listeners!");
         Bukkit.getPluginManager().registerEvents(new PlayerLoad(), getInstance());
+        Bukkit.getPluginManager().registerEvents(new Chat(), getInstance());
         LoggingUtil.logMessage("Core", "&fAll listeners have been registered!");
     }
 
