@@ -5,6 +5,6 @@ import org.bukkit.Bukkit;
 public class LoggingUtil {
 
     public static void logMessage(String name, String message) {
-        Bukkit.getConsoleSender().sendMessage(Utils.color("&f" + name + " > " + message));
+        Bukkit.getConsoleSender().sendMessage(Utils.color("&9" + name + "> &f" + message));
     }
 }

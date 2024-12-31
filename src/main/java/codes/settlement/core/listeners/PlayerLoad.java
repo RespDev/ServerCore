@@ -12,7 +12,6 @@ public class PlayerLoad implements Listener {
     public void onPlayerLoad(PlayerJoinEvent e) {
         Player player = e.getPlayer();
 
-        PlayerUtil.loadPlayer(player);
         PlayerUtil.refreshPlayer(player);
     }
 }

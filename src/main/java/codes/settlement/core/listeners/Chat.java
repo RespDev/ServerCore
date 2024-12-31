@@ -1,7 +1,9 @@
 package codes.settlement.core.listeners;
 
-import codes.settlement.core.rank.Rank;
-import codes.settlement.core.util.SqlUtil;
+import codes.settlement.core.util.Utils;
+import net.luckperms.api.LuckPermsProvider;
+import net.luckperms.api.model.user.User;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
@@ -9,10 +11,16 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 public class Chat implements Listener {
 
     @EventHandler
-    public void onChat(AsyncPlayerChatEvent e) {
-        //e.setFormat();
-        //String test = new Rank().getScoreboardName(new SqlUtil().getUserRank(e.getPlayer().getUniqueId())).toString();
+    public void onChat(AsyncPlayerChatEvent event) {
+        Player player = event.getPlayer();
 
-        //e.getPlayer().sendMessage("Hey your rank is: " + new Rank().getScoreboardName(new SqlUtil().getUserRank(e.getPlayer().getUniqueId())));
+        User user = LuckPermsProvider.get().getPlayerAdapter(Player.class).getUser(player);
+        String prefix = user.getCachedData().getMetaData().getPrefix();
+        String suffix = user.getCachedData().getMetaData().getSuffix();
+
+        String message = event.getMessage();
+        String username = player.getName();
+
+        event.setFormat(Utils.color(prefix + username + suffix + ": " + message));
     }
 }
