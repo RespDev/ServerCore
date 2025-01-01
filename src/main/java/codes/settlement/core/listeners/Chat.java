@@ -21,6 +21,6 @@ public class Chat implements Listener {
         String message = event.getMessage();
         String username = player.getName();
 
-        event.setFormat(Utils.color(prefix + username + suffix + (player.hasPermission("servercore.hasrank") ? "&f: " : "&7: ") + message));
+        event.setFormat(Utils.color(prefix + username + suffix + (player.hasPermission("servercore.hasrank") ? "&f: " : "&7: ")) + message);
     }
 }
