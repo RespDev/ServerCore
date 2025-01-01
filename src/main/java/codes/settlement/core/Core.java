@@ -15,9 +15,8 @@ public class Core extends JavaPlugin {
 
     public Config config;
 
-    public String tabHeader = "";
-    public String tabFooter = "";
-    private String version = "0.0.1";
+    public String dashboardUrl = "";
+    private String version = "1.0.0";
 
     @Override
     public void onEnable() {
@@ -27,8 +26,7 @@ public class Core extends JavaPlugin {
         // Load configuration
         config = new Config("config.yml");
 
-        tabHeader = Utils.color(config.getString("tab-header"));
-        tabFooter = Utils.color(config.getString("tab-footer"));
+        dashboardUrl = config.getString("dashboard-url");
 
         // Load luckperms api
         RegisteredServiceProvider<LuckPerms> lpProvider = Bukkit.getServicesManager().getRegistration(LuckPerms.class);
@@ -51,14 +49,6 @@ public class Core extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new PlayerLoad(), getInstance());
         Bukkit.getPluginManager().registerEvents(new Chat(), getInstance());
         LoggingUtil.logMessage("Core", "All listeners have been registered!");
-    }
-
-    public void setTabHeader(String tabHeader) {
-        this.tabHeader = tabHeader;
-    }
-
-    public void setTabFooter(String tabFooter) {
-        this.tabFooter = tabFooter;
     }
 
     public static Core getInstance() {
