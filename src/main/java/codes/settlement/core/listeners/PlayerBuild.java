@@ -5,6 +5,7 @@ import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerGameModeChangeEvent;
@@ -12,7 +13,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class PlayerBuild {
+public class PlayerBuild implements Listener {
     private static ArrayList<UUID> allowBuild = new ArrayList<UUID>();
 
     // Buildmode System

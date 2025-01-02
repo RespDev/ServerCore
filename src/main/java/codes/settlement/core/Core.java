@@ -67,6 +67,7 @@ public class Core extends JavaPlugin {
         // Park specific listeners
         if (isPark) {
             LoggingUtil.logMessage("Core", "Park listeners being registered also!");
+            Bukkit.getPluginManager().registerEvents(new PlayerBuild(), getInstance());
             Bukkit.getPluginManager().registerEvents(new InventoryListener(), getInstance());
             Bukkit.getPluginManager().registerEvents(new PlayerDropItem(), getInstance());
             Bukkit.getPluginManager().registerEvents(new PlayerInteract(), getInstance());
