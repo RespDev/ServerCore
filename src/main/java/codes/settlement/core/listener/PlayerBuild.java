@@ -1,4 +1,4 @@
-package codes.settlement.core.listeners;
+package codes.settlement.core.listener;
 
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -14,18 +14,21 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.hanging.HangingBreakByEntityEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
-import java.util.ArrayList;
+
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
-public class PlayerBuild implements Listener {
-    private static ArrayList<UUID> allowBuild = new ArrayList<UUID>();
+public final class PlayerBuild implements Listener {
+    private static final Set<UUID> allowBuild = new HashSet<UUID>();
 
     // Build Mode System
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onBreak(BlockBreakEvent event) {
         Player player = event.getPlayer();
         if (allowBuild.contains(event.getPlayer().getUniqueId())) return;
-        if (player.hasPermission("core.mod")) player.sendMessage(ChatColor.RED + "You must be in Build Mode to break blocks!");
+        if (player.hasPermission("core.mod"))
+            player.sendMessage(ChatColor.RED + "You must be in Build Mode to break blocks!");
         event.setCancelled(true);
     }
 
@@ -33,18 +36,21 @@ public class PlayerBuild implements Listener {
     public void onPlace(BlockPlaceEvent event) {
         Player player = event.getPlayer();
         if (allowBuild.contains(event.getPlayer().getUniqueId())) return;
-        if (player.hasPermission("core.mod")) player.sendMessage(ChatColor.RED + "You must be in Build Mode to place blocks!");
+        if (player.hasPermission("core.mod"))
+            player.sendMessage(ChatColor.RED + "You must be in Build Mode to place blocks!");
         event.setCancelled(true);
     }
 
     @EventHandler
     public void onItemFramePlace(PlayerInteractEvent event) {
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
-        if (event.getItem() == null || (event.getItem().getType() != Material.ITEM_FRAME && event.getItem().getType() != Material.GLOW_ITEM_FRAME)) return;
+        if (event.getItem() == null || (event.getItem().getType() != Material.ITEM_FRAME && event.getItem().getType() != Material.GLOW_ITEM_FRAME))
+            return;
 
         Player player = event.getPlayer();
         if (allowBuild.contains(player.getUniqueId())) return;
-        if (player.hasPermission("core.mod")) player.sendMessage(ChatColor.RED + "You must be in Build Mode to place item frames!");
+        if (player.hasPermission("core.mod"))
+            player.sendMessage(ChatColor.RED + "You must be in Build Mode to place item frames!");
         event.setCancelled(true);
     }
 
@@ -180,12 +186,14 @@ public class PlayerBuild implements Listener {
         if (allowBuild.contains(event.getPlayer().getUniqueId())) {
             if (!gameMode.equals(GameMode.CREATIVE) && !gameMode.equals(GameMode.SPECTATOR)) {
                 event.setCancelled(true);
-                if (player.hasPermission("core.mod")) player.sendMessage(ChatColor.RED + "You must exit Build Mode to go into Survival or Adventure mode!");
+                if (player.hasPermission("core.mod"))
+                    player.sendMessage(ChatColor.RED + "You must exit Build Mode to go into Survival or Adventure mode!");
             }
         } else {
             if (!gameMode.equals(GameMode.ADVENTURE) && !gameMode.equals(GameMode.SURVIVAL)) {
                 event.setCancelled(true);
-                if (player.hasPermission("core.mod")) player.sendMessage(ChatColor.RED + "You must be in Build Mode to go into Creative or Spectator mode!");
+                if (player.hasPermission("core.mod"))
+                    player.sendMessage(ChatColor.RED + "You must be in Build Mode to go into Creative or Spectator mode!");
             }
         }
     }

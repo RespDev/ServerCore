@@ -1,4 +1,4 @@
-package codes.settlement.core.listeners;
+package codes.settlement.core.listener;
 
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
@@ -8,7 +8,7 @@ import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 
-public class EntityDamage implements Listener {
+public final class EntityDamage implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onEntityDamage(EntityDamageEvent event) {

@@ -8,7 +8,7 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class PlayerUtil {
+public final class PlayerUtil {
     public static void refreshPlayer(Player player) {
         if (Core.getInstance().isPark()) refreshParkItems(player);
     }

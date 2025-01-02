@@ -1,13 +1,12 @@
-package codes.settlement.core.listeners;
+package codes.settlement.core.listener;
 
-import codes.settlement.core.util.Utils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerDropItemEvent;
 
-public class PlayerDropItem implements Listener {
+public final class PlayerDropItem implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerDropItem(PlayerDropItemEvent event) {

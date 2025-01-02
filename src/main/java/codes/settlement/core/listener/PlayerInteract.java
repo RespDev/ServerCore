@@ -1,4 +1,4 @@
-package codes.settlement.core.listeners;
+package codes.settlement.core.listener;
 
 import codes.settlement.core.util.Utils;
 import org.bukkit.entity.Player;
@@ -8,7 +8,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
-public class PlayerInteract implements Listener {
+public final class PlayerInteract implements Listener {
 
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {

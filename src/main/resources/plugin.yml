@@ -6,4 +6,6 @@ author: Heslop, RespDev
 description: Core Server Plugin
 commands:
   buildmode:
-    description: Buildmode command.
+    description: Build Mode command.
+  fly:
+    description: Fly command.

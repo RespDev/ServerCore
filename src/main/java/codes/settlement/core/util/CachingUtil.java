@@ -1,5 +1,5 @@
 package codes.settlement.core.util;
 
-public class CachingUtil {
+public final class CachingUtil {
 
 }

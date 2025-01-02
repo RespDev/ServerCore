@@ -1,4 +1,4 @@
-package codes.settlement.core.util.manager;
+package codes.settlement.core.model;
 
 import codes.settlement.core.Core;
 import codes.settlement.core.util.Utils;
@@ -13,7 +13,7 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
-public class PlayerScoreboardManager implements Runnable {
+public final class PlayerScoreboard implements Runnable {
 
     @Override
     public void run() {
@@ -40,7 +40,7 @@ public class PlayerScoreboardManager implements Runnable {
         objective.getScore(ChatColor.GREEN + " ").setScore(6);
         // rank
         objective.getScore(ChatColor.BLUE + " ").setScore(4);
-        objective.getScore(ChatColor.GREEN + "Server: " + Core.getInstance().config.getString("server-name")).setScore(2);
+        objective.getScore(ChatColor.GREEN + "Server: " + Core.getInstance().getConfiguration().getString("server-name")).setScore(2);
         objective.getScore(ChatColor.YELLOW + " ").setScore(1);
         objective.getScore(ChatColor.YELLOW + "store.galaxyparks.net").setScore(0);
 

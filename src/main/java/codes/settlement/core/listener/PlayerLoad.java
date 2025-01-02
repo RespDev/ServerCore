@@ -1,4 +1,4 @@
-package codes.settlement.core.listeners;
+package codes.settlement.core.listener;
 
 import codes.settlement.core.Core;
 import codes.settlement.core.util.PlayerUtil;
@@ -8,7 +8,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-public class PlayerLoad implements Listener {
+public final class PlayerLoad implements Listener {
 
     @EventHandler
     public void onPlayerLoad(PlayerJoinEvent event) {
@@ -27,7 +27,6 @@ public class PlayerLoad implements Listener {
         } catch (IllegalArgumentException e) {
             gamemode = GameMode.ADVENTURE;
         }
-
         player.setGameMode(gamemode);
     }
 }

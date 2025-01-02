@@ -5,7 +5,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 
-public class Config extends YamlConfiguration {
+public final class Config extends YamlConfiguration {
     private final Core plugin = Core.getInstance();
     private final File file;
 
