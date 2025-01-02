@@ -1,8 +1,9 @@
 package codes.settlement.core.util.manager;
 
-import java.util.UUID;
-
 import codes.settlement.core.Core;
+import codes.settlement.core.util.Utils;
+import net.luckperms.api.LuckPermsProvider;
+import net.luckperms.api.model.user.User;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -26,8 +27,6 @@ public class PlayerScoreboardManager implements Runnable {
     }
 
     private void createScoreboard(Player player) {
-        UUID uuid = player.getUniqueId();
-
         Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
         Objective objective = scoreboard.registerNewObjective("Default", "dummy");
 
@@ -64,7 +63,7 @@ public class PlayerScoreboardManager implements Runnable {
         Team playerRank = scoreboard.registerNewTeam("playerRank");
         playerRank.addEntry(ChatColor.DARK_PURPLE.toString());
         playerRank.setPrefix(ChatColor.GREEN + "Rank: ");
-        playerRank.setSuffix(ChatColor.GRAY + "Soon");
+        playerRank.setSuffix(getPlayerScoreboardRank(player));
         objective.getScore(ChatColor.DARK_PURPLE.toString()).setScore(5);
 
         // Players
@@ -79,7 +78,6 @@ public class PlayerScoreboardManager implements Runnable {
 
     private void updateScoreboard(Player player) {
         Scoreboard scoreboard = player.getScoreboard();
-        UUID uuid = player.getUniqueId();
         Team money = scoreboard.getTeam("money");
         Team tokens = scoreboard.getTeam("tokens");
         Team playerRank = scoreboard.getTeam("playerRank");
@@ -87,11 +85,35 @@ public class PlayerScoreboardManager implements Runnable {
 
         money.setSuffix(ChatColor.GREEN + "0");
         tokens.setSuffix(ChatColor.GREEN + "0");
-        playerRank.setSuffix(ChatColor.GRAY + "Soon");
+        playerRank.setSuffix(getPlayerScoreboardRank(player));
         players.setSuffix(ChatColor.GREEN + "" + Bukkit.getOnlinePlayers().size());
     }
 
     private String getPlayerScoreboardRank(Player player) {
-        return null;
+        User user = LuckPermsProvider.get().getPlayerAdapter(Player.class).getUser(player);
+
+        String primaryGroup = user.getCachedData().getMetaData().getPrimaryGroup();
+
+        if (primaryGroup == null) return "Guest";
+
+        return switch (primaryGroup) {
+            case "director" -> Utils.color("&cDirector");
+            case "manager" -> Utils.color("&cManager");
+            case "admin" -> Utils.color("&cAdmin");
+            case "developer" -> Utils.color("&6Developer");
+            case "coordinator" -> Utils.color("&eCoordinator");
+            case "architect" -> Utils.color("&eArchitect");
+            case "builder" -> Utils.color("&aBuilder");
+            case "mod" -> Utils.color("&aMod");
+            case "trainee" -> Utils.color("&2Trainee");
+            case "character" -> Utils.color("&9Character");
+            case "specialguest" -> Utils.color("&5Special Guest");
+            case "shareholder" -> Utils.color("&dShareholder");
+            case "honorable" -> Utils.color("&dHonorable");
+            case "majestic" -> Utils.color("&5Majestic");
+            case "noble" -> Utils.color("&9Noble");
+            case "dweller" -> Utils.color("&bDweller");
+            default -> Utils.color("&3Settler");
+        };
     }
 }
