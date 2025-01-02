@@ -90,4 +90,8 @@ public class PlayerScoreboardManager implements Runnable {
         playerRank.setSuffix(ChatColor.GRAY + "Soon");
         players.setSuffix(ChatColor.GREEN + "" + Bukkit.getOnlinePlayers().size());
     }
+
+    private String getPlayerScoreboardRank(Player player) {
+        return null;
+    }
 }

@@ -7,14 +7,12 @@ import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.hanging.HangingBreakByEntityEvent;
-import org.bukkit.event.player.PlayerGameModeChangeEvent;
-import org.bukkit.event.player.PlayerInteractAtEntityEvent;
-import org.bukkit.event.player.PlayerInteractEntityEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import java.util.ArrayList;
 import java.util.UUID;
@@ -36,6 +34,17 @@ public class PlayerBuild implements Listener {
         Player player = event.getPlayer();
         if (allowBuild.contains(event.getPlayer().getUniqueId())) return;
         if (player.hasPermission("core.mod")) player.sendMessage(ChatColor.RED + "You must be in Build Mode to place blocks!");
+        event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onItemFramePlace(PlayerInteractEvent event) {
+        if (event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
+        if (event.getItem() == null || (event.getItem().getType() != Material.ITEM_FRAME && event.getItem().getType() != Material.GLOW_ITEM_FRAME)) return;
+
+        Player player = event.getPlayer();
+        if (allowBuild.contains(player.getUniqueId())) return;
+        if (player.hasPermission("core.mod")) player.sendMessage(ChatColor.RED + "You must be in Build Mode to place item frames!");
         event.setCancelled(true);
     }
 
@@ -67,18 +76,8 @@ public class PlayerBuild implements Listener {
                 }
                 break;
             }
-            case ITEM_FRAME: {
-                if (handleItemFrameDamage(entity, damager)) {
-                    event.setCancelled(true);
-                }
-                break;
-            }
-            case GLOW_ITEM_FRAME: {
-                if (handleItemFrameDamage(entity, damager)) {
-                    event.setCancelled(true);
-                }
-                break;
-            }
+            case ITEM_FRAME:
+            case GLOW_ITEM_FRAME:
             case ARMOR_STAND: {
                 if (damager instanceof Player) {
                     Player player = (Player) damager;
@@ -98,64 +97,14 @@ public class PlayerBuild implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-    public void onPlayerInteractAtEntity(PlayerInteractAtEntityEvent event) {
-        Entity entity = event.getRightClicked();
-        Player player = event.getPlayer();
-
-        switch (entity.getType()) {
-            case ARMOR_STAND:
-            case ITEM_FRAME: {
-                if (player.hasPermission("core.mod")) {
-                    if (!allowBuild.contains(player.getUniqueId())) {
-                        event.setCancelled(true);
-                        player.sendMessage(ChatColor.RED + "You must be in Build Mode to edit entities!");
-                    }
-                } else {
-                    event.setCancelled(true);
-                    player.sendMessage(ChatColor.RED + "You are not allowed to edit this!");
-                }
-            }
-            case GLOW_ITEM_FRAME: {
-                if (player.hasPermission("core.mod")) {
-                    if (!allowBuild.contains(player.getUniqueId())) {
-                        event.setCancelled(true);
-                        player.sendMessage(ChatColor.RED + "You must be in Build Mode to edit entities!");
-                    }
-                } else {
-                    event.setCancelled(true);
-                    player.sendMessage(ChatColor.RED + "You are not allowed to edit this!");
-                }
-            }
-        }
-    }
-
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onEntityInteract(PlayerInteractEntityEvent event) {
         Entity clicked = event.getRightClicked();
         Player player = event.getPlayer();
 
         switch (clicked.getType()) {
             case ARMOR_STAND:
-            case ITEM_FRAME: {
-                if (!player.hasPermission("core.mod")) {
-                    event.setCancelled(true);
-                    player.sendMessage(ChatColor.RED + "You are not allowed to place item frames!");
-                } else if (!allowBuild.contains(player.getUniqueId())) {
-                    event.setCancelled(true);
-                    player.sendMessage(ChatColor.RED + "You must be in Build Mode to place item frames!");
-                }
-                break;
-            }
-            case GLOW_ITEM_FRAME: {
-                if (!player.hasPermission("core.mod")) {
-                    event.setCancelled(true);
-                    player.sendMessage(ChatColor.RED + "You are not allowed to place item frames!");
-                } else if (!allowBuild.contains(player.getUniqueId())) {
-                    event.setCancelled(true);
-                    player.sendMessage(ChatColor.RED + "You must be in Build Mode to place item frames!");
-                }
-                break;
-            }
+            case ITEM_FRAME:
+            case GLOW_ITEM_FRAME:
             case PAINTING: {
                 if (!player.hasPermission("core.mod")) {
                     event.setCancelled(true);
@@ -165,6 +114,22 @@ public class PlayerBuild implements Listener {
                     player.sendMessage(ChatColor.RED + "You must be in Build Mode to edit entities!");
                 }
                 break;
+            }
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void onPlayerInteractAtEntity(PlayerInteractAtEntityEvent event) {
+        Entity entity = event.getRightClicked();
+        Player player = event.getPlayer();
+
+        if (entity instanceof ArmorStand) {
+            if (!player.hasPermission("core.mod")) {
+                event.setCancelled(true);
+                player.sendMessage(ChatColor.RED + "You are not allowed to edit this!");
+            } else if (!allowBuild.contains(player.getUniqueId())) {
+                event.setCancelled(true);
+                player.sendMessage(ChatColor.RED + "You must be in Build Mode to edit entities!");
             }
         }
     }
