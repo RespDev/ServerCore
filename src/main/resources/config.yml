@@ -1,1 +1,5 @@
 dashboard-url: ''
+server-name: ''
+default-scoreboard: true
+park: true
+gamemode: 'ADVENTURE'

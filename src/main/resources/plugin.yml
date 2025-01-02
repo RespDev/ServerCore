@@ -1,5 +1,9 @@
 name: ServerCore
 main: codes.settlement.core.Core
 version: 1.0.0
+api-version: 1.21
 author: Heslop, RespDev
 description: Core Server Plugin
+commands:
+  buildmode:
+    description: Buildmode command.

@@ -12,7 +12,9 @@ public class Chat implements Listener {
 
     @EventHandler
     public void onChat(AsyncPlayerChatEvent event) {
-        Player player = event.getPlayer();
+        event.setCancelled(true);
+        // Old chat system before it was network-wide
+        /*Player player = event.getPlayer();
 
         User user = LuckPermsProvider.get().getPlayerAdapter(Player.class).getUser(player);
         String prefix = user.getCachedData().getMetaData().getPrefix();
@@ -24,6 +26,6 @@ public class Chat implements Listener {
         if (prefix == null) prefix = "";
         if (suffix == null) suffix = "";
 
-        event.setFormat(Utils.color(prefix + "&r&7" + username +  ": " + suffix) + message);
+        event.setFormat(Utils.color(prefix + "&r&7" + username +  ": " + suffix) + message);*/
     }
 }
