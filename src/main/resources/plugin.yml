@@ -6,6 +6,12 @@ author: Heslop, RespDev
 description: Core Server Plugin
 commands:
   buildmode:
-    description: Build Mode command.
+    description: "Build Mode command."
+    usage: "/buildmode"
   fly:
-    description: Fly command.
+    description: "Fly command."
+    usage: "/fly"
+  vanish:
+    description: "Vanish command."
+    usage: "/vanish (player)"
+    aliases: [ v ]

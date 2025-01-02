@@ -30,15 +30,15 @@ public final class PlayerUtil {
         clockMeta.setDisplayName(Utils.color("&aClock &7(Right-Click)"));
         clockItem.setItemMeta(clockMeta);
 
-        ItemStack autographBook = new ItemStack(Material.BOOK);
-        ItemMeta autographMeta = autographBook.getItemMeta();
+        ItemStack autographBookItem = new ItemStack(Material.BOOK);
+        ItemMeta autographMeta = autographBookItem.getItemMeta();
         autographMeta.setDisplayName(Utils.color("&3Autograph Book"));
         autographMeta.setUnbreakable(true);
         autographMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         autographMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         autographMeta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
         autographMeta.addEnchant(Enchantment.LOYALTY, 1, false);
-        autographBook.setItemMeta(autographMeta);
+        autographBookItem.setItemMeta(autographMeta);
 
         ItemStack magicbandItem = new ItemStack(Material.GRAY_DYE);
         ItemMeta magicbandMeta = magicbandItem.getItemMeta();
@@ -49,7 +49,7 @@ public final class PlayerUtil {
         player.getInventory().setItem(4, rideItem);
         player.getInventory().setItem(5, backpackItem);
         player.getInventory().setItem(6, clockItem);
-        player.getInventory().setItem(7, autographBook);
+        player.getInventory().setItem(7, autographBookItem);
         player.getInventory().setItem(8, magicbandItem);
     }
 }

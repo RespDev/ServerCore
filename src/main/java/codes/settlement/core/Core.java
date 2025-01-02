@@ -2,6 +2,7 @@ package codes.settlement.core;
 
 import codes.settlement.core.command.BuildmodeCommand;
 import codes.settlement.core.command.FlyCommand;
+import codes.settlement.core.command.VanishCommand;
 import codes.settlement.core.command.disabled.TabCompletion;
 import codes.settlement.core.listener.*;
 import codes.settlement.core.model.PlayerScoreboard;
@@ -65,6 +66,7 @@ public final class Core extends JavaPlugin {
         // Normal listeners
         LoggingUtil.logMessage("Core", "Starting to register normal listeners!");
         Bukkit.getPluginManager().registerEvents(new PlayerLoad(), getInstance());
+        Bukkit.getPluginManager().registerEvents(new Leave(), getInstance());
         Bukkit.getPluginManager().registerEvents(new Chat(), getInstance());
         Bukkit.getPluginManager().registerEvents(new EntityDamage(), getInstance());
         Bukkit.getPluginManager().registerEvents(new TabCompletion(), getInstance());
@@ -85,6 +87,7 @@ public final class Core extends JavaPlugin {
         // Normal commands
         LoggingUtil.logMessage("Core", "Starting to register normal commands!");
         this.getCommand("fly").setExecutor(new FlyCommand());
+        this.getCommand("vanish").setExecutor(new VanishCommand());
 
         // Park specific listeners
         if (isPark) {
