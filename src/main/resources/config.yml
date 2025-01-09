@@ -1,8 +1,5 @@
-server-name: ""
-server-ip: ""
-scoreboard:
-  middle-lines:
-    - ""
-    - "&7Rank: &bPlaceholder"
-    - ""
+dashboard-url: ''
+server-name: ''
 default-scoreboard: true
+park: true
+gamemode: 'ADVENTURE'

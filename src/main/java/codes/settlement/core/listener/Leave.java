@@ -1,5 +1,6 @@
 package codes.settlement.core.listener;
 
+import codes.settlement.core.command.VanishCommand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,5 +14,10 @@ public final class Leave implements Listener {
 
         // Cancel quit message
         event.setQuitMessage("");
+
+        // Vanish utilities
+        if (VanishCommand.getVanishedPlayers().contains(player.getUniqueId())) {
+            VanishCommand.unvanishPlayer(player);
+        }
     }
 }
