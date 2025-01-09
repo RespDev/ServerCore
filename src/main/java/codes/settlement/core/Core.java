@@ -1,10 +1,8 @@
 package codes.settlement.core;
 
-import codes.settlement.core.command.BuildmodeCommand;
-import codes.settlement.core.command.FlyCommand;
-import codes.settlement.core.command.VanishCommand;
-import codes.settlement.core.command.disabled.TabCompletion;
-import codes.settlement.core.listener.*;
+import codes.settlement.core.listener.Chat;
+import codes.settlement.core.listener.Leave;
+import codes.settlement.core.listener.PlayerLoad;
 import codes.settlement.core.model.PlayerScoreboard;
 import codes.settlement.core.util.LoggingUtil;
 import codes.settlement.core.util.config.Config;
@@ -19,8 +17,6 @@ public final class Core extends JavaPlugin {
     private static Core instance;
     private String version = "1.0.0";
     private Config config;
-    private String dashboardUrl;
-    private Boolean isPark;
     private BukkitTask scoreboardTask;
 
     @Override
@@ -32,8 +28,6 @@ public final class Core extends JavaPlugin {
 
         // Load configuration
         config = new Config("config.yml");
-        dashboardUrl = config.getString("dashboard-url");
-        isPark = config.getBoolean("park");
 
         // Load scoreboard
         if (config.getBoolean("default-scoreboard"))
@@ -64,50 +58,22 @@ public final class Core extends JavaPlugin {
 
     private void registerListeners() {
         // Normal listeners
-        LoggingUtil.logMessage("Core", "Starting to register normal listeners!");
+        LoggingUtil.logMessage("Core", "Starting to register listeners!");
         Bukkit.getPluginManager().registerEvents(new PlayerLoad(), getInstance());
         Bukkit.getPluginManager().registerEvents(new Leave(), getInstance());
         Bukkit.getPluginManager().registerEvents(new Chat(), getInstance());
-        Bukkit.getPluginManager().registerEvents(new EntityDamage(), getInstance());
-        Bukkit.getPluginManager().registerEvents(new TabCompletion(), getInstance());
-
-        // Park specific listeners
-        if (isPark) {
-            LoggingUtil.logMessage("Core", "Park listeners being registered also!");
-            Bukkit.getPluginManager().registerEvents(new PlayerBuild(), getInstance());
-            Bukkit.getPluginManager().registerEvents(new InventoryListener(), getInstance());
-            Bukkit.getPluginManager().registerEvents(new PlayerDropItem(), getInstance());
-            Bukkit.getPluginManager().registerEvents(new PlayerInteract(), getInstance());
-        }
-
         LoggingUtil.logMessage("Core", "All listeners have been registered!");
     }
 
     private void registerCommands() {
         // Normal commands
-        LoggingUtil.logMessage("Core", "Starting to register normal commands!");
-        this.getCommand("fly").setExecutor(new FlyCommand());
-        this.getCommand("vanish").setExecutor(new VanishCommand());
-
-        // Park specific listeners
-        if (isPark) {
-            LoggingUtil.logMessage("Core", "Park commands being registered also!");
-            this.getCommand("buildmode").setExecutor(new BuildmodeCommand());
-        }
-
+        LoggingUtil.logMessage("Core", "Starting to register commands!");
+        //this.getCommand("example").setExecutor(new ExampleCommand());
         LoggingUtil.logMessage("Core", "All commands have been registered!");
     }
 
     public Config getConfiguration() {
         return config;
-    }
-
-    public String getDashboardUrl() {
-        return dashboardUrl;
-    }
-
-    public Boolean isPark() {
-        return isPark;
     }
 
     public static Core getInstance() {
