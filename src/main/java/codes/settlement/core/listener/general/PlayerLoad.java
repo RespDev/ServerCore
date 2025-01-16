@@ -1,7 +1,7 @@
-package codes.settlement.core.listener;
+package codes.settlement.core.listener.general;
 
 import codes.settlement.core.Core;
-import codes.settlement.core.command.VanishCommand;
+import codes.settlement.core.command.general.VanishCommand;
 import codes.settlement.core.util.PlayerUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;

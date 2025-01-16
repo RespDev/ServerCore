@@ -1,4 +1,4 @@
-package codes.settlement.core.command;
+package codes.settlement.core.command.general;
 
 import codes.settlement.core.util.Utils;
 import org.bukkit.Bukkit;

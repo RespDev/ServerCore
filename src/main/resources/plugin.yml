@@ -15,3 +15,11 @@ commands:
     description: "Vanish command."
     usage: "/vanish (player)"
     aliases: [ v ]
+  tpa:
+    description: "Tpa command."
+  tpaccept:
+    description: "Tpa here command."
+  tpdeny:
+    description: "Tpa deny command."
+  tphere:
+    description: "Teleport here command."

@@ -1,4 +1,4 @@
-package codes.settlement.core.listener;
+package codes.settlement.core.listener.general;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

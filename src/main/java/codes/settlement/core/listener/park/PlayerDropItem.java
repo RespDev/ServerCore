@@ -1,4 +1,4 @@
-package codes.settlement.core.listener;
+package codes.settlement.core.listener.park;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
