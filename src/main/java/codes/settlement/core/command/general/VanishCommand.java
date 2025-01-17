@@ -92,7 +92,8 @@ public final class VanishCommand implements CommandExecutor {
     public static void vanishPlayer(Player player) {
         vanishedPlayers.add(player.getUniqueId());
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-            onlinePlayer.hidePlayer(player);
+            if (!onlinePlayer.hasPermission("core.trainee"))
+                onlinePlayer.hidePlayer(player);
         }
     }
 }

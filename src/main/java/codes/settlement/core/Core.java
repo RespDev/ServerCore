@@ -92,6 +92,7 @@ public final class Core extends JavaPlugin {
             Bukkit.getPluginManager().registerEvents(new InventoryListener(), getInstance());
             Bukkit.getPluginManager().registerEvents(new PlayerDropItem(), getInstance());
             Bukkit.getPluginManager().registerEvents(new PlayerInteract(), getInstance());
+            Bukkit.getPluginManager().registerEvents(new TimeDisplayListener(), this);
         }
 
         LoggingUtil.logMessage("Core", "All listeners have been registered!");
