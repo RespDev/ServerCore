@@ -3,23 +3,4 @@ main: codes.settlement.core.Core
 version: 1.0.0
 api-version: 1.21
 author: Heslop, RespDev
-description: Core Server Plugin
-commands:
-  buildmode:
-    description: "Build Mode command."
-    usage: "/buildmode"
-  fly:
-    description: "Fly command."
-    usage: "/fly"
-  vanish:
-    description: "Vanish command."
-    usage: "/vanish (player)"
-    aliases: [ v ]
-  tpa:
-    description: "Tpa command."
-  tpaccept:
-    description: "Tpa here command."
-  tpdeny:
-    description: "Tpa deny command."
-  tphere:
-    description: "Teleport here command."
+description: Core server plugin.

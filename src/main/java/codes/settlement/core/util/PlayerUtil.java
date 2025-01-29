@@ -1,55 +1,32 @@
 package codes.settlement.core.util;
 
 import codes.settlement.core.Core;
-import org.bukkit.Material;
-import org.bukkit.enchantments.Enchantment;
+import net.luckperms.api.LuckPerms;
+import net.luckperms.api.LuckPermsProvider;
+import net.luckperms.api.model.user.User;
+import net.luckperms.api.node.types.ChatMetaNode;
+import net.luckperms.api.query.QueryOptions;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemFlag;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
-public final class PlayerUtil {
-    public static void refreshPlayer(Player player) {
-        if (Core.getInstance().isPark()) refreshParkItems(player);
-    }
+public class PlayerUtil {
+    private static final LuckPerms luckPerms = LuckPermsProvider.get();
 
-    private static void refreshParkItems(Player player) {
-        // Item definition
-        ItemStack rideItem = new ItemStack(Material.GLASS_PANE);
-        ItemMeta rideMeta = rideItem.getItemMeta();
-        rideMeta.setDisplayName(Utils.color("&aThis Slot is Reserved for &7(Ride Items)"));
-        rideItem.setItemMeta(rideMeta);
+    public static void sendTab(Player player) {
+        User user = luckPerms.getPlayerAdapter(Player.class).getUser(player);
 
-        ItemStack backpackItem = new ItemStack(Material.TRAPPED_CHEST);
-        ItemMeta backpackMeta = backpackItem.getItemMeta();
-        backpackMeta.setDisplayName(Utils.color("&aBackpack &7(Right-Click)"));
-        backpackItem.setItemMeta(backpackMeta);
+        int rankWeight = user.resolveInheritedNodes(QueryOptions.nonContextual()).stream()
+                .filter(node -> node instanceof ChatMetaNode)
+                .mapToInt(node -> ((ChatMetaNode) node).getPriority())
+                .max()
+                .orElse(0);
+        String prefix = user.getCachedData().getMetaData().getPrefix();
 
-        ItemStack clockItem = new ItemStack(Material.CLOCK);
-        ItemMeta clockMeta = clockItem.getItemMeta();
-        clockMeta.setDisplayName(Utils.color("&aClock &7(Right-Click)"));
-        clockItem.setItemMeta(clockMeta);
+        player.setPlayerListHeader(ChatColor.AQUA + "Galaxy Parks - " + ChatColor.GREEN + "A Family of Servers");
+        player.setPlayerListFooter(ChatColor.AQUA + "You are in the " + ChatColor.GREEN + Core.getInstance().getConfiguration().getString("server-name") + ChatColor.AQUA + " server");
 
-        ItemStack autographBookItem = new ItemStack(Material.BOOK);
-        ItemMeta autographMeta = autographBookItem.getItemMeta();
-        autographMeta.setDisplayName(Utils.color("&3Autograph Book"));
-        autographMeta.setUnbreakable(true);
-        autographMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-        autographMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-        autographMeta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
-        autographMeta.addEnchant(Enchantment.LOYALTY, 1, false);
-        autographBookItem.setItemMeta(autographMeta);
-
-        ItemStack magicbandItem = new ItemStack(Material.GRAY_DYE);
-        ItemMeta magicbandMeta = magicbandItem.getItemMeta();
-        magicbandMeta.setDisplayName(Utils.color("&aMagicBand &7(Right-Click)"));
-        magicbandItem.setItemMeta(magicbandMeta);
-
-        // Set Inventory slots
-        player.getInventory().setItem(4, rideItem);
-        player.getInventory().setItem(5, backpackItem);
-        player.getInventory().setItem(6, clockItem);
-        player.getInventory().setItem(7, autographBookItem);
-        player.getInventory().setItem(8, magicbandItem);
+        player.setPlayerListOrder(rankWeight);
+        player.setDisplayName(Utils.color((prefix != null ? prefix : "")) + player.getName());
+        player.setPlayerListName(Utils.color((prefix != null ? prefix : "")) + player.getName());
     }
 }
