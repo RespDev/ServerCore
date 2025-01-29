@@ -4,5 +4,6 @@ db:
   database:
   username:
   password:
-server-name: ''
+server-name: "Hub"
 default-scoreboard: true
+gamemode: "ADVENTURE"
