@@ -1,7 +1,7 @@
 package codes.settlement.core.util;
 
 import codes.settlement.core.Core;
-import codes.settlement.core.model.Permission;
+import codes.settlement.core.constant.Permission;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
 import net.luckperms.api.model.user.User;
@@ -16,7 +16,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-public class PlayerUtil {
+public final class PlayerUtil {
     private static final LuckPerms luckPerms = LuckPermsProvider.get();
     private static final Set<UUID> vanishedPlayers = new HashSet<>();
 
@@ -83,9 +83,11 @@ public class PlayerUtil {
      * Unvanish the specified player.
      */
     public static void unvanishPlayer(Player player) {
-        vanishedPlayers.remove(player.getUniqueId());
-        for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-            onlinePlayer.showPlayer(Core.getInstance(), player);
+        if (vanishedPlayers.contains(player.getUniqueId())) {
+            vanishedPlayers.remove(player.getUniqueId());
+            for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+                onlinePlayer.showPlayer(Core.getInstance(), player);
+            }
         }
     }
 
@@ -93,10 +95,12 @@ public class PlayerUtil {
      * Vanish the specified player.
      */
     public static void vanishPlayer(Player player) {
-        vanishedPlayers.add(player.getUniqueId());
-        for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-            if (!onlinePlayer.hasPermission(Permission.SPECIALGUEST))
-                onlinePlayer.hidePlayer(Core.getInstance(), player);
+        if (!vanishedPlayers.contains(player.getUniqueId())) {
+            vanishedPlayers.add(player.getUniqueId());
+            for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+                if (!onlinePlayer.hasPermission(Permission.SPECIALGUEST))
+                    onlinePlayer.hidePlayer(Core.getInstance(), player);
+            }
         }
     }
 

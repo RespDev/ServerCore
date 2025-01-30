@@ -1,4 +1,4 @@
-package codes.settlement.core.model;
+package codes.settlement.core.constant;
 
 public final class Permission {
 

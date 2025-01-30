@@ -1,6 +1,6 @@
 package codes.settlement.core.command;
 
-import codes.settlement.core.model.Permission;
+import codes.settlement.core.constant.Permission;
 import codes.settlement.core.util.PlayerUtil;
 import codes.settlement.core.util.Utils;
 import org.bukkit.Bukkit;
@@ -46,7 +46,7 @@ public final class VanishCommand implements CommandExecutor {
         }
 
         boolean isVanished = PlayerUtil.isVanished(targetPlayer);
-        
+
         if (isVanished) {
             PlayerUtil.unvanishPlayer(targetPlayer);
         } else {
