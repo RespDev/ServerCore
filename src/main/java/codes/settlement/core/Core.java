@@ -7,6 +7,8 @@ import codes.settlement.core.util.LoggingUtil;
 import codes.settlement.core.util.SqlUtil;
 import codes.settlement.core.util.config.Config;
 import org.bukkit.Bukkit;
+import org.bukkit.event.Listener;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Core extends JavaPlugin {
@@ -59,6 +61,14 @@ public final class Core extends JavaPlugin {
         // TODO: Code commands
 
         LoggingUtil.logMessage("Core", "All commands have been registered!");
+    }
+
+    public static void registerListener(Listener listener) {
+        Bukkit.getPluginManager().registerEvents(listener, getInstance());
+    }
+
+    public static int runTask(Plugin plugin, Runnable task) {
+        return Bukkit.getScheduler().runTask(plugin, task).getTaskId();
     }
 
     public Config getConfiguration() {

@@ -71,4 +71,14 @@ public final class Utils {
             return new ItemStack[0]; // Return an empty array in case of an error
         }
     }
+
+    /**
+     * Capitalize first letter of a string.
+     *
+     * @param input the input
+     * @return the string
+     */
+    public static String capitalizeFirstLetter(String input) {
+        return input.substring(0, 1).toUpperCase() + input.substring(1);
+    }
 }
