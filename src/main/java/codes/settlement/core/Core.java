@@ -1,5 +1,6 @@
 package codes.settlement.core;
 
+import codes.settlement.core.command.VanishCommand;
 import codes.settlement.core.listener.Chat;
 import codes.settlement.core.listener.Join;
 import codes.settlement.core.listener.Leave;
@@ -48,9 +49,9 @@ public final class Core extends JavaPlugin {
     private void registerListeners() {
         LoggingUtil.logMessage("Core", "Starting to register listeners!");
 
-        Bukkit.getPluginManager().registerEvents(new Join(), getInstance());
-        Bukkit.getPluginManager().registerEvents(new Leave(), getInstance());
-        Bukkit.getPluginManager().registerEvents(new Chat(), getInstance());
+        registerListener(new Join());
+        registerListener(new Leave());
+        registerListener(new Chat());
 
         LoggingUtil.logMessage("Core", "All listeners have been registered!");
     }
@@ -58,7 +59,7 @@ public final class Core extends JavaPlugin {
     private void registerCommands() {
         LoggingUtil.logMessage("Core", "Starting to register commands!");
 
-        // TODO: Code commands
+        new VanishCommand();
 
         LoggingUtil.logMessage("Core", "All commands have been registered!");
     }

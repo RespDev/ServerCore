@@ -1,37 +1,42 @@
 package codes.settlement.core.command;
 
+import codes.settlement.core.constant.Message;
 import codes.settlement.core.constant.Permission;
+import codes.settlement.core.model.AbstractCommand;
 import codes.settlement.core.util.PlayerUtil;
 import codes.settlement.core.util.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public final class VanishCommand implements CommandExecutor {
+import java.util.List;
+
+public final class VanishCommand extends AbstractCommand {
+
+    public VanishCommand() {
+        super("vanish", "Vanish yourself from the view of guests", Permission.SPECIALGUEST, "v");
+    }
 
     /*
-     * Handle the vanish command.
+     * Handles the vanish command.
      */
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public void execute(CommandSender sender, String[] args) {
         Player targetPlayer = null;
 
         if (sender instanceof Player) {
             Player player = (Player) sender;
             if (!player.hasPermission(Permission.SPECIALGUEST)) {
-                player.sendMessage(ChatColor.RED + "Sorry, you do not have the required permission to execute this command!");
-                return true;
+                player.sendMessage(Message.NO_PERMISSION);
+                return;
             }
         }
 
         if (args.length == 0) {
             if (!(sender instanceof Player)) {
                 sender.sendMessage(ChatColor.RED + "Please specify a player when executing this command from the console!");
-
-                return true;
+                return;
             }
 
             targetPlayer = (Player) sender;
@@ -40,8 +45,7 @@ public final class VanishCommand implements CommandExecutor {
 
             if (targetPlayer == null) {
                 sender.sendMessage(Utils.color("&cThat player currently is not online!"));
-
-                return true;
+                return;
             }
         }
 
@@ -60,7 +64,13 @@ public final class VanishCommand implements CommandExecutor {
 
         if (!(sender instanceof Player))
             sender.sendMessage(Utils.color("&e") + targetPlayer.getName() + " is now " + (isVanished ? "visible" : "invisible") + ".");
+    }
 
-        return true;
+    /*
+     * Handles tab completion of the vanish command.
+     */
+    @Override
+    public List<String> onTabComplete(CommandSender sender, String[] args) {
+        return null;
     }
 }
