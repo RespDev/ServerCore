@@ -23,7 +23,7 @@ public abstract class AbstractCommand extends BukkitCommand {
             field.setAccessible(true);
             CommandMap map = (CommandMap) field.get(Bukkit.getServer());
             map.register(command, this);
-            
+
             LoggingUtil.logMessage("AbstractCommand", "Registered the " + command + " command!");
         } catch (NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
