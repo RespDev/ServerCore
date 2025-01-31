@@ -1,6 +1,7 @@
 package codes.settlement.core;
 
-import codes.settlement.core.command.VanishCommand;
+import codes.settlement.core.command.*;
+import codes.settlement.core.command.disabled.OPCommand;
 import codes.settlement.core.listener.Chat;
 import codes.settlement.core.listener.Join;
 import codes.settlement.core.listener.Leave;
@@ -59,7 +60,21 @@ public final class Core extends JavaPlugin {
     private void registerCommands() {
         LoggingUtil.logMessage("Core", "Starting to register commands!");
 
+        new FlyCommand();
         new VanishCommand();
+        new InvseeCommand();
+        new GamemodeCommand();
+        new GMCCommand();
+        new GMSCommand();
+        new GMACommand();
+        new GMSPCommand();
+        new HealCommand();
+        new HatCommand();
+        new HelpOpCommand();
+        new OPCommand();
+        new TpCommand();
+        new TpHereCommand();
+        new TpAllCommand();
 
         LoggingUtil.logMessage("Core", "All commands have been registered!");
     }
