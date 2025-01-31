@@ -7,6 +7,7 @@ import codes.settlement.core.listener.Join;
 import codes.settlement.core.listener.Leave;
 import codes.settlement.core.util.LoggingUtil;
 import codes.settlement.core.util.SqlUtil;
+import codes.settlement.core.util.TpaUtil;
 import codes.settlement.core.util.config.Config;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
@@ -44,6 +45,8 @@ public final class Core extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        TpaUtil.clearAllRequests();
+
         LoggingUtil.logMessage("Core", "Core is now disabled!");
     }
 
@@ -75,6 +78,11 @@ public final class Core extends JavaPlugin {
         new TpCommand();
         new TpHereCommand();
         new TpAllCommand();
+        new TpaCommand();
+        new TpaHereCommand();
+        new TpaCancelCommand();
+        new TpaAcceptCommand();
+        new TpaDenyCommand();
 
         LoggingUtil.logMessage("Core", "All commands have been registered!");
     }

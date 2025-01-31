@@ -68,6 +68,7 @@ public final class PlayerUtil {
      */
     public static void handleLeave(Player player) {
         handleVanishLeave(player);
+        TpaUtil.clearRequestsForPlayer(player);
 
         // TODO: Add more leave functions as features get added back.
     }
