@@ -33,8 +33,6 @@ public final class TpaAcceptCommand extends AbstractCommand {
             Bukkit.getScheduler().runTaskLater(Core.getInstance(), () -> {
                 requester.teleport(targetLocation);
             }, 1L);
-        } else {
-            player.sendMessage(ChatColor.RED + "An error occured during the teleport, please contact a cast member.");
         }
     }
 
