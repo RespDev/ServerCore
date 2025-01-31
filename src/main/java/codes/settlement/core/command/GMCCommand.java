@@ -11,7 +11,7 @@ import java.util.List;
 
 public final class GMCCommand extends AbstractCommand {
     public GMCCommand() {
-        super("gmc", "Changes the players gamemode to Creative", Permission.MOD);
+        super("gmc", "Changes the players gamemode to Creative", Permission.GAMEMODE_COMMAND);
     }
 
     @Override

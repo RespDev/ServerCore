@@ -11,7 +11,7 @@ import java.util.List;
 
 public final class GMSCommand extends AbstractCommand {
     public GMSCommand() {
-        super("gms", "Changes the players gamemode to Survival", Permission.MOD);
+        super("gms", "Changes the players gamemode to Survival", Permission.GAMEMODE_COMMAND);
     }
 
     @Override

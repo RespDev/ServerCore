@@ -11,7 +11,7 @@ import java.util.List;
 
 public final class GMSPCommand extends AbstractCommand {
     public GMSPCommand() {
-        super("gmsp", "Changes the players gamemode to Spectator", Permission.MOD);
+        super("gmsp", "Changes the players gamemode to Spectator", Permission.GAMEMODE_COMMAND);
     }
 
     @Override

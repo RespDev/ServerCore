@@ -2,21 +2,21 @@ package codes.settlement.core.command;
 
 import codes.settlement.core.constant.Permission;
 import codes.settlement.core.model.AbstractCommand;
+import codes.settlement.core.util.Utils;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public final class FlyCommand extends AbstractCommand {
+public final class DiscordCommand extends AbstractCommand {
 
-    public FlyCommand() {
-        super("fly", "Toggle your flight state", Permission.FLY_COMMAND);
+    public DiscordCommand() {
+        super("discord", "The link to our discord server", Permission.SETTLER);
     }
 
-    /*
-     * Handles the fly command.
-     */
     @Override
     public void execute(CommandSender sender, String[] args) {
         if (!(sender instanceof Player)) {
@@ -26,13 +26,12 @@ public final class FlyCommand extends AbstractCommand {
 
         Player player = (Player) sender;
 
-        player.setAllowFlight(!player.getAllowFlight());
-        player.sendMessage(player.getAllowFlight() ? ChatColor.GREEN + "Flight enabled." : ChatColor.RED + "Flight disabled.");
+        TextComponent message = new TextComponent(Utils.color("\n&a&lCLICK TO JOIN OUR DISCORD\n"));
+        message.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://discord.gg/EHwGR58885"));
+
+        player.spigot().sendMessage(message);
     }
 
-    /*
-     * Handles tab completion of the fly command.
-     */
     @Override
     public List<String> onTabComplete(CommandSender sender, String[] args) {
         return null;

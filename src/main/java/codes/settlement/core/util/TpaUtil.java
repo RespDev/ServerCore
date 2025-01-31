@@ -19,8 +19,12 @@ public final class TpaUtil {
         }
 
         requests.put(target, new RequestData(requester, System.currentTimeMillis()));
-        target.sendMessage(Utils.color("&aYou have received a teleport request from &b" + requester.getName() + "&a."));
+
+        requester.sendMessage(Utils.color("&aRequest will expire in 15 seconds."));
         requester.sendMessage(Utils.color("&aYou sent a teleport request to &b" + target.getName() + "&a."));
+
+        target.sendMessage(Utils.color("&aRequest will expire in 15 seconds."));
+        target.sendMessage(Utils.color("&aYou have received a teleport request from &b" + requester.getName() + "&a."));
 
         Bukkit.getScheduler().runTaskLaterAsynchronously(Core.getInstance(), () -> {
             if (requests.containsKey(target) && requests.get(target).requester.equals(requester)) {

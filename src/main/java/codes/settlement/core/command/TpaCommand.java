@@ -42,9 +42,7 @@ public final class TpaCommand extends AbstractCommand {
             player.sendMessage(Utils.color("&cYou cannot send a teleport request to yourself!"));
             return;
         }
-
-        player.sendMessage(Utils.color("&aRequest will expire in 15 seconds."));
-        targetPlayer.sendMessage(Utils.color("&aRequest will expire in 15 seconds."));
+        
         TpaUtil.addRequest(targetPlayer, player);
     }
 

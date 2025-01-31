@@ -14,7 +14,7 @@ import java.util.List;
 public final class GamemodeCommand extends AbstractCommand {
 
     public GamemodeCommand() {
-        super("gamemode", "Changes the players gamemode", Permission.MOD, "gm");
+        super("gamemode", "Changes the players gamemode", Permission.GAMEMODE_COMMAND, "gm");
     }
 
     @Override

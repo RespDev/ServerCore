@@ -83,6 +83,8 @@ public final class Core extends JavaPlugin {
         new TpaCancelCommand();
         new TpaAcceptCommand();
         new TpaDenyCommand();
+        new RulesCommand();
+        new DiscordCommand();
 
         LoggingUtil.logMessage("Core", "All commands have been registered!");
     }
