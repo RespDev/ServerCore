@@ -36,7 +36,7 @@ public final class HatCommand extends AbstractCommand {
 
         player.getInventory().setHelmet(helmet);
         player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
-        
+
         player.sendMessage(Utils.color("&aSuccessfully put the item you are holding onto your head."));
     }
 

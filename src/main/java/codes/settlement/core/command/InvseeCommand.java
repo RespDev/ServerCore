@@ -14,7 +14,7 @@ import java.util.List;
 public final class InvseeCommand extends AbstractCommand {
 
     public InvseeCommand() {
-        super("invsee", "View a players inventory", Permission.STAFF);
+        super("invsee", "View a players inventory", Permission.STAFF, "inventorysee");
     }
 
     /*

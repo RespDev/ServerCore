@@ -26,7 +26,7 @@ public final class DiscordCommand extends AbstractCommand {
 
         Player player = (Player) sender;
 
-        TextComponent message = new TextComponent(Utils.color("\n&a&lCLICK TO JOIN OUR DISCORD\n"));
+        TextComponent message = new TextComponent(Utils.color("\n&e&lCLICK TO JOIN OUR DISCORD\n"));
         message.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://discord.gg/EHwGR58885"));
 
         player.spigot().sendMessage(message);

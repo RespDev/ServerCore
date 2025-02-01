@@ -58,6 +58,14 @@ public final class PlayerUtil {
             player.setGameMode(gamemode);
         }
 
+        /*
+         * Sends a join message when you join
+         */
+        String message = Core.getInstance().getConfiguration().getString("welcome-message");
+        if (message != null) {
+            player.sendMessage(Core.getInstance().getConfiguration().getString("welcome-message"));
+        }
+
         handleVanishJoin(player);
 
         // TODO: Add more join functions as features get added back.

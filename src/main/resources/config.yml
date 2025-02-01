@@ -5,5 +5,6 @@ db:
   username:
   password:
 server-name: "Hub"
+welcome-message: "&aWelcome to &b&lGALAXY PARKS&a!"
 default-scoreboard: true
 gamemode: "ADVENTURE"

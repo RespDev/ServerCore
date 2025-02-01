@@ -5,6 +5,7 @@ import codes.settlement.core.command.disabled.OPCommand;
 import codes.settlement.core.listener.Chat;
 import codes.settlement.core.listener.Join;
 import codes.settlement.core.listener.Leave;
+import codes.settlement.core.listener.MenuListener;
 import codes.settlement.core.util.LoggingUtil;
 import codes.settlement.core.util.SqlUtil;
 import codes.settlement.core.util.TpaUtil;
@@ -56,6 +57,7 @@ public final class Core extends JavaPlugin {
         registerListener(new Join());
         registerListener(new Leave());
         registerListener(new Chat());
+        registerListener(new MenuListener());
 
         LoggingUtil.logMessage("Core", "All listeners have been registered!");
     }

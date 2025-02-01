@@ -12,7 +12,7 @@ import java.util.List;
 public final class RulesCommand extends AbstractCommand {
 
     public RulesCommand() {
-        super("rules", "View the rules of our server", Permission.SETTLER);
+        super("rules", "View the rules of our server", Permission.SETTLER, "rule");
     }
 
     @Override
@@ -32,6 +32,8 @@ public final class RulesCommand extends AbstractCommand {
         player.sendMessage(Utils.color("&74. No fighting. &a- Fighting among guests and staff is not tolerated."));
         player.sendMessage(Utils.color("&75. No sharing personal information. &a- Leaking your or other peoples personal information is not allowed."));
         player.sendMessage(Utils.color("&76. No drama allowed. &a- &bGalaxy Parks &ais a fun place and please keep frustration to yourselves."));
+        player.sendMessage(Utils.color("&77. No unfair advantages. &a- We do not tolerate cheats or unfair exploits of any kind."));
+        player.sendMessage(Utils.color("&7The staff team reserves the right to moderate users. If you believe you were falsely moderated please open a support ticket in our Discord server."));
     }
 
     @Override

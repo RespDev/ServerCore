@@ -11,7 +11,7 @@ import java.util.List;
 
 public final class GMACommand extends AbstractCommand {
     public GMACommand() {
-        super("gma", "Changes the players gamemode to Adventure", Permission.GAMEMODE_COMMAND);
+        super("gma", "Changes the players gamemode to Adventure", Permission.GAMEMODE_COMMAND, "adventure");
     }
 
     @Override
