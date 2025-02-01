@@ -1,10 +1,1 @@
-Requires ServerProxy for network wide chat.
-
-Ranks through Luckperms
-
-TODO
-
-A bit of caching work
-Add Backend api
-Add magicband
-Add Autograph Book
+THIS IS AN EXAMPLE PROJECT TO SHOW I CAN CODE IT IS NOT INTENDED TO BE RUN ON A SERVER
