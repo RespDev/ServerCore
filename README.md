@@ -1,1 +1,3 @@
-THIS IS AN EXAMPLE PROJECT TO SHOW I CAN CODE IT IS NOT INTENDED TO BE RUN ON A SERVER
+# Core
+
+The core plugin that does all the important things.
