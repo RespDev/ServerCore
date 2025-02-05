@@ -2,14 +2,11 @@ package codes.settlement.core.util;
 
 import codes.settlement.core.Core;
 import codes.settlement.core.constant.Permission;
-import net.luckperms.api.LuckPerms;
-import net.luckperms.api.LuckPermsProvider;
-import net.luckperms.api.model.user.User;
-import net.luckperms.api.node.types.ChatMetaNode;
-import net.luckperms.api.query.QueryOptions;
+import codes.settlement.core.manager.NametagManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import java.util.HashSet;
@@ -17,28 +14,20 @@ import java.util.Set;
 import java.util.UUID;
 
 public final class PlayerUtil {
-    private static final LuckPerms luckPerms = LuckPermsProvider.get();
     private static final Set<UUID> vanishedPlayers = new HashSet<>();
 
     /*
      * Format the tab list.
      */
     public static void sendTab(Player player) {
-        User user = luckPerms.getPlayerAdapter(Player.class).getUser(player);
-
-        int rankWeight = user.resolveInheritedNodes(QueryOptions.nonContextual()).stream()
-                .filter(node -> node instanceof ChatMetaNode)
-                .mapToInt(node -> ((ChatMetaNode) node).getPriority())
-                .max()
-                .orElse(0);
-        String prefix = user.getCachedData().getMetaData().getPrefix();
-
         player.setPlayerListHeader(ChatColor.AQUA + "Galaxy Parks - " + ChatColor.GREEN + "A Family of Servers");
         player.setPlayerListFooter(ChatColor.AQUA + "You are in the " + ChatColor.GREEN + Core.getInstance().getConfiguration().getString("server-name") + ChatColor.AQUA + " server");
 
-        player.setPlayerListOrder(rankWeight);
-        player.setDisplayName(Utils.color((prefix != null ? prefix : "")) + player.getName());
-        player.setPlayerListName(Utils.color((prefix != null ? prefix : "")) + player.getName());
+        NametagManager.setupPlayer(player);
+
+        for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+            NametagManager.updateNametag(onlinePlayer);
+        }
     }
 
     /*
@@ -63,10 +52,31 @@ public final class PlayerUtil {
          */
         String message = Core.getInstance().getConfiguration().getString("welcome-message");
         if (message != null) {
-            player.sendMessage(Core.getInstance().getConfiguration().getString("welcome-message"));
+            player.sendMessage(Utils.color(message));
         }
 
+        /*
+         * Teleports the player to spawn
+         */
+        Location spawnLocation = Core.getInstance().getSpawnConfig().getSpawnLocation();
+        if (!player.hasPermission(Permission.STAFF)) {
+            if (spawnLocation == null) {
+                player.sendMessage(Utils.color("&cSpawn location is not set!"));
+                return;
+            }
+
+            player.teleport(spawnLocation);
+        }
+
+        /*
+         * Vanish staff members on join
+         */
         handleVanishJoin(player);
+
+        /*
+         * Loads tab on join
+         */
+        sendTab(player);
 
         // TODO: Add more join functions as features get added back.
     }
@@ -76,6 +86,7 @@ public final class PlayerUtil {
      */
     public static void handleLeave(Player player) {
         handleVanishLeave(player);
+        NametagManager.updateNametag(player);
         TpaUtil.clearRequestsForPlayer(player);
 
         // TODO: Add more leave functions as features get added back.

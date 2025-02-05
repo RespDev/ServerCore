@@ -12,8 +12,7 @@ public final class Join implements Listener {
     public void onJoin(PlayerJoinEvent event) {
         event.setJoinMessage("");
         Player player = event.getPlayer();
-
-        PlayerUtil.sendTab(player);
+        
         PlayerUtil.handleJoin(player);
     }
 }

@@ -6,20 +6,25 @@ import codes.settlement.core.listener.Chat;
 import codes.settlement.core.listener.Join;
 import codes.settlement.core.listener.Leave;
 import codes.settlement.core.listener.MenuListener;
+import codes.settlement.core.manager.ScoreboardManager;
 import codes.settlement.core.util.LoggingUtil;
 import codes.settlement.core.util.SqlUtil;
 import codes.settlement.core.util.TpaUtil;
 import codes.settlement.core.util.config.Config;
+import codes.settlement.core.util.config.SpawnConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitTask;
 
 public final class Core extends JavaPlugin {
 
     private static Core instance;
     private String version = "1.0.0";
+    private BukkitTask scoreboardTask;
     private Config config;
+    private SpawnConfig spawnConfig;
     private SqlUtil sqlUtil;
 
     @Override
@@ -30,6 +35,10 @@ public final class Core extends JavaPlugin {
 
         // Load configuration
         config = new Config("config.yml");
+        spawnConfig = new SpawnConfig();
+
+        if (config.getBoolean("default-scoreboard"))
+            scoreboardTask = getServer().getScheduler().runTaskTimer(instance, new ScoreboardManager(), 0, 1);
 
         // Utils
         sqlUtil = new SqlUtil();
@@ -46,6 +55,9 @@ public final class Core extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        if (scoreboardTask != null && !scoreboardTask.isCancelled())
+            scoreboardTask.cancel();
+
         TpaUtil.clearAllRequests();
 
         LoggingUtil.logMessage("Core", "Core is now disabled!");
@@ -87,6 +99,7 @@ public final class Core extends JavaPlugin {
         new TpaDenyCommand();
         new RulesCommand();
         new DiscordCommand();
+        new SpawnCommand();
 
         LoggingUtil.logMessage("Core", "All commands have been registered!");
     }
@@ -103,7 +116,15 @@ public final class Core extends JavaPlugin {
         return config;
     }
 
+    public SpawnConfig getSpawnConfig() {
+        return spawnConfig;
+    }
+
     public static Core getInstance() {
         return instance;
+    }
+
+    public static int runTaskTimer(Plugin plugin, Runnable task, long delay, long period) {
+        return Bukkit.getScheduler().runTaskTimer(plugin, task, delay, period).getTaskId();
     }
 }

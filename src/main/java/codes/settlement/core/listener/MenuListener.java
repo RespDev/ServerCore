@@ -17,8 +17,12 @@ public class MenuListener implements Listener {
         Player player = (Player) event.getWhoClicked();
         int slot = event.getSlot();
 
+        if (event.getClickedInventory().equals(player.getInventory())) return;
+
         if (player.hasMetadata("ServerCoreMenu")) {
             Menu menu = (Menu) player.getMetadata("ServerCoreMenu").get(0).value();
+
+            event.setCancelled(true);
 
             for (Button button : menu.getButtons())
                 if (button.getSlot() == slot)
