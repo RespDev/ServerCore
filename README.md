@@ -1,10 +1,3 @@
-Requires ServerProxy for network wide chat.
+# Core
 
-Ranks through Luckperms
-
-TODO
-
-A bit of caching work
-Add Backend api
-Add magicband
-Add Autograph Book
+The core plugin that does all the important things.
