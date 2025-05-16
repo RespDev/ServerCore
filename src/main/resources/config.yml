@@ -4,6 +4,7 @@ db:
   database:
   username:
   password:
+production: false
 server-name: "Hub"
 welcome-message: "&aWelcome to &b&lGalaxy Parks&a!"
 default-scoreboard: true

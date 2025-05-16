@@ -42,6 +42,9 @@ public class NametagManager {
                 team = scoreboard.registerNewTeam(teamName);
                 team.setPrefix(Utils.color(prefix));
                 team.setColor(ChatColor.GRAY);
+
+                // Easy fix so I don't have to do packet work
+                player.setPlayerListName(Utils.color(prefix) + player.getName());
             }
             team.setOption(Team.Option.COLLISION_RULE, Team.OptionStatus.NEVER);
 

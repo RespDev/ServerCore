@@ -41,10 +41,12 @@ public final class Core extends JavaPlugin {
             scoreboardTask = getServer().getScheduler().runTaskTimer(instance, new ScoreboardManager(), 0, 1);
 
         // Utils
-        sqlUtil = new SqlUtil();
+        if (config.getBoolean("production")) {
+            sqlUtil = new SqlUtil();
 
-        // Create Tables
-        sqlUtil.createBackpackTable();
+            // Create Tables
+            sqlUtil.createBackpackTable();
+        }
 
         // Load Commands & Listeners
         registerListeners();
