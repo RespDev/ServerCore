@@ -2,3 +2,4 @@
 *.xml
 ServerCore.iml
 .idea/compiler.xml
+target
