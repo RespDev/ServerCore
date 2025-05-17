@@ -1,0 +1,13 @@
+# Parks
+layout:
+  4: ride_item
+  5: park_backpack
+  6: park_clock
+  7: autograph_book
+  8: magic_band
+
+# Hub
+#layout:
+#  0: cosmetics
+#  4: navigation
+#  8: hub

@@ -8,6 +8,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public class MenuListener implements Listener {
@@ -17,6 +18,7 @@ public class MenuListener implements Listener {
         Player player = (Player) event.getWhoClicked();
         int slot = event.getSlot();
 
+        if (event.getClickedInventory() == null) return;
         if (event.getClickedInventory().equals(player.getInventory())) return;
 
         if (player.hasMetadata("ServerCoreMenu")) {
@@ -47,4 +49,21 @@ public class MenuListener implements Listener {
             player.getMetadata("ServerCoreMenu").clear();
         }
     }
+
+    @EventHandler
+    public void onInventoryDrag(InventoryDragEvent event) {
+        Player player = (Player) event.getWhoClicked();
+
+        if (event.getInventory().equals(player.getInventory())) return;
+
+        if (player.hasMetadata("ServerCoreMenu")) {
+            for (int slot : event.getRawSlots()) {
+                if (slot < player.getInventory().getSize()) {
+                    event.setCancelled(true);
+                    return;
+                }
+            }
+        }
+    }
+
 }

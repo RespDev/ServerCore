@@ -2,10 +2,8 @@ package codes.settlement.core;
 
 import codes.settlement.core.command.*;
 import codes.settlement.core.command.disabled.OPCommand;
-import codes.settlement.core.listener.Chat;
-import codes.settlement.core.listener.Join;
-import codes.settlement.core.listener.Leave;
-import codes.settlement.core.listener.MenuListener;
+import codes.settlement.core.listener.*;
+import codes.settlement.core.manager.HotbarManager;
 import codes.settlement.core.manager.ScoreboardManager;
 import codes.settlement.core.util.LoggingUtil;
 import codes.settlement.core.util.SqlUtil;
@@ -26,6 +24,7 @@ public final class Core extends JavaPlugin {
     private Config config;
     private SpawnConfig spawnConfig;
     private SqlUtil sqlUtil;
+    private HotbarManager hotbarManager;
 
     @Override
     public void onEnable() {
@@ -37,6 +36,9 @@ public final class Core extends JavaPlugin {
         config = new Config("config.yml");
         spawnConfig = new SpawnConfig();
 
+        saveResource("hotbar-items.yml", false);
+        saveResource("hotbar-layout.yml", false);
+
         if (config.getBoolean("default-scoreboard"))
             scoreboardTask = getServer().getScheduler().runTaskTimer(instance, new ScoreboardManager(), 0, 1);
 
@@ -47,6 +49,7 @@ public final class Core extends JavaPlugin {
             // Create Tables
             sqlUtil.createBackpackTable();
         }
+        hotbarManager = new HotbarManager(this);
 
         // Load Commands & Listeners
         registerListeners();
@@ -72,6 +75,8 @@ public final class Core extends JavaPlugin {
         registerListener(new Leave());
         registerListener(new Chat());
         registerListener(new MenuListener());
+        registerListener(new HotbarListener(hotbarManager));
+        registerListener(new PlayerInteract(hotbarManager));
 
         LoggingUtil.logMessage("Core", "All listeners have been registered!");
     }

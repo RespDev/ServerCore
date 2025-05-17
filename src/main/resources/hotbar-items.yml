@@ -1,0 +1,56 @@
+# Parks
+ride_item:
+  material: GLASS_PANE
+  name: "&aThis Slot is Reserved for &7(Ride Items)"
+
+park_backpack:
+  material: TRAPPED_CHEST
+  name: "&aBackpack &7(Right-Click)"
+  actions:
+    - message: "&cBackpack coming soon!"
+
+park_clock:
+  material: CLOCK
+  name: "&aWatch &7(Right-Click)"
+  actions:
+    - message: "&cWatch coming soon!"
+
+autograph_book:
+  material: BOOK
+  name: "&3Autograph Book"
+  actions:
+    - message: "&cAutograph Book coming soon!"
+
+magic_band:
+  material: GRAY_DYE
+  name: "&aMagicBand &7(Right-Click)"
+  actions:
+    - openMenu:MagicBandMenu
+
+# Hub
+navigation:
+  material: NETHER_STAR
+  name: "&9Navigation"
+  actions:
+    - message: "&cNavigation coming soon!"
+
+cosmetics:
+  material: ENDER_CHEST
+  name: "&aCosmetics"
+  lore:
+    - "&7Open Cosmetics Menu"
+  actions:
+    - message: "&cCosmetics coming soon!"
+
+hub:
+  material: BOOK
+  name: "&9Hub Selector"
+  actions:
+    - message: "&cHub Selector coming soon!"
+
+#example_item:
+#  material: TRAPPED_CHEST
+#  name: "&7Example name"
+#  lore:
+#    - "&7Example lore"
+#  action: "queueManager.joinPvP(player);"

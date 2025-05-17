@@ -1,11 +1,15 @@
 package codes.settlement.core.util;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public final class ItemUtil {
@@ -160,5 +164,25 @@ public final class ItemUtil {
             loreList.add(Utils.color(line));
         }
         return create(type, amount, Utils.color(name), loreList);
+    }
+
+    public static ItemStack createSkull(String playerName, String displayName, String... lore) {
+        // Create the skull item
+        ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
+        SkullMeta meta = (SkullMeta) skull.getItemMeta();
+        if (meta != null) {
+            // Set the owning player (skin)
+            OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(playerName);
+            meta.setOwningPlayer(offlinePlayer);
+            // Set display name and lore
+            meta.setDisplayName(Utils.color(displayName));
+            if (lore != null && lore.length > 0) {
+                meta.setLore(Arrays.stream(lore)
+                        .map(Utils::color)
+                        .toList());
+            }
+            skull.setItemMeta(meta);
+        }
+        return skull;
     }
 }
