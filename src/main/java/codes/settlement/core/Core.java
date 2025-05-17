@@ -114,6 +114,7 @@ public final class Core extends JavaPlugin {
 
     public static void registerListener(Listener listener) {
         Bukkit.getPluginManager().registerEvents(listener, getInstance());
+        LoggingUtil.logMessage("Listener", "Registered the " + listener.getClass().getSimpleName() + " listener!");
     }
 
     public static int runTask(Plugin plugin, Runnable task) {

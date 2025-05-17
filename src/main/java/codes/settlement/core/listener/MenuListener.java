@@ -19,6 +19,7 @@ public class MenuListener implements Listener {
         int slot = event.getSlot();
 
         if (event.getClickedInventory() == null) return;
+        if (player.hasMetadata("ServerCoreMenu")) event.setCancelled(true); // Prevents shift clicking things into a menu
         if (event.getClickedInventory().equals(player.getInventory())) return;
 
         if (player.hasMetadata("ServerCoreMenu")) {
