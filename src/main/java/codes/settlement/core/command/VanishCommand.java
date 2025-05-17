@@ -53,12 +53,14 @@ public final class VanishCommand extends AbstractCommand {
 
         if (isVanished) {
             PlayerUtil.unvanishPlayer(targetPlayer);
+            targetPlayer.sendMessage(Utils.color("&3You have become visible."));
         } else {
             PlayerUtil.vanishPlayer(targetPlayer);
+            targetPlayer.sendMessage(Utils.color("&3You have vanished. Poof."));
         }
 
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-            if (onlinePlayer.hasPermission(Permission.SPECIALGUEST))
+            if (onlinePlayer.hasPermission(Permission.SPECIALGUEST) && !onlinePlayer.getUniqueId().equals(targetPlayer.getUniqueId()))
                 onlinePlayer.sendMessage(Utils.color("&e" + targetPlayer.getName() + (isVanished ? " has become visible." : " has vanished. Poof.")));
         }
 
