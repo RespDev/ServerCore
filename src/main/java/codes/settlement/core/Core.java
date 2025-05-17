@@ -107,6 +107,7 @@ public final class Core extends JavaPlugin {
         new RulesCommand();
         new DiscordCommand();
         new SpawnCommand();
+        new SocialsCommand();
 
         LoggingUtil.logMessage("Core", "All commands have been registered!");
     }
