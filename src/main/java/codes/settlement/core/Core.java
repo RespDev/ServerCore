@@ -16,6 +16,8 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
 
+import java.io.File;
+
 public final class Core extends JavaPlugin {
 
     private static Core instance;
@@ -36,8 +38,15 @@ public final class Core extends JavaPlugin {
         config = new Config("config.yml");
         spawnConfig = new SpawnConfig();
 
-        saveResource("hotbar-items.yml", false);
-        saveResource("hotbar-layout.yml", false);
+        // Save files
+        File hotbarItems = new File(getDataFolder(), "hotbar-items.yml");
+        if (!hotbarItems.exists()) {
+            saveResource("hotbar-items.yml", false);
+        }
+        File hotbarLayout = new File(getDataFolder(), "hotbar-layout.yml");
+        if (!hotbarLayout.exists()) {
+            saveResource("hotbar-layout.yml", false);
+        }
 
         if (config.getBoolean("default-scoreboard"))
             scoreboardTask = getServer().getScheduler().runTaskTimer(instance, new ScoreboardManager(), 0, 1);
@@ -49,7 +58,9 @@ public final class Core extends JavaPlugin {
             // Create Tables
             sqlUtil.createBackpackTable();
         }
-        hotbarManager = new HotbarManager(this);
+        if (config.getBoolean("hotbar-tools")) {
+            hotbarManager = new HotbarManager(this);
+        }
 
         // Load Commands & Listeners
         registerListeners();
@@ -75,8 +86,10 @@ public final class Core extends JavaPlugin {
         registerListener(new Leave());
         registerListener(new Chat());
         registerListener(new MenuListener());
-        registerListener(new HotbarListener(hotbarManager));
-        registerListener(new PlayerInteract(hotbarManager));
+        if (config.getBoolean("hotbar-tools")) {
+            registerListener(new HotbarListener(hotbarManager));
+            registerListener(new PlayerInteract(hotbarManager));
+        }
 
         LoggingUtil.logMessage("Core", "All listeners have been registered!");
     }
@@ -108,6 +121,7 @@ public final class Core extends JavaPlugin {
         new DiscordCommand();
         new SpawnCommand();
         new SocialsCommand();
+        new ConfigCommand();
 
         LoggingUtil.logMessage("Core", "All commands have been registered!");
     }

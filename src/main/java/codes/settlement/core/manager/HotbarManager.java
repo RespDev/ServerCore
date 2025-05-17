@@ -22,8 +22,11 @@ public class HotbarManager {
     private final Map<Integer, String> layout = new HashMap<>();
     private final JavaPlugin plugin;
 
+    private static HotbarManager instance;
+
     public HotbarManager(JavaPlugin plugin) {
         this.plugin = plugin;
+        instance = this;
         loadItems();
         loadLayout();
     }
@@ -48,6 +51,13 @@ public class HotbarManager {
             for (String slotStr : config.getConfigurationSection("layout").getKeys(false)) {
                 layout.put(Integer.parseInt(slotStr), config.getString("layout." + slotStr));
             }
+        }
+    }
+
+    public static void reloadFiles() {
+        if (instance != null) {
+            instance.loadItems();
+            instance.loadLayout();
         }
     }
 

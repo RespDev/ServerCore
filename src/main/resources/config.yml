@@ -1,3 +1,4 @@
+# Server settings
 db:
   host:
   port:
@@ -6,6 +7,10 @@ db:
   password:
 production: false
 server-name: "Hub"
-welcome-message: "&aWelcome to &b&lGalaxy Parks&a!"
 default-scoreboard: true
+
+# Options
+welcome-message: "&aWelcome to &b&lGalaxy Parks&a!"
 gamemode: "ADVENTURE"
+hotbar-tools: true
+inventory-sync: false

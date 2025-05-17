@@ -1,5 +1,6 @@
 package codes.settlement.core.menu.impl;
 
+import codes.settlement.core.constant.Item;
 import codes.settlement.core.menu.Button;
 import codes.settlement.core.menu.Menu;
 import codes.settlement.core.util.ItemUtil;
@@ -93,7 +94,7 @@ public class MagicBandMenu extends Menu {
 
             @Override
             public void onClick(Player player) {
-                // Open park selection
+                new ParkSubMenu().displayTo(player);
             }
         });
 
@@ -147,5 +148,85 @@ public class MagicBandMenu extends Menu {
                 // Open show schedule
             }
         });
+
+        // Close Button (Slot 22)
+        this.addButton(new Button(22) {
+            @Override
+            public ItemStack getItem() {
+                return Item.closeButton;
+            }
+
+            @Override
+            public void onClick(Player player) {
+                player.closeInventory();
+            }
+        });
+    }
+
+    private class ParkSubMenu extends Menu {
+
+        public ParkSubMenu() {
+
+            this.setTitle("&9Parks");
+
+            this.setSize(9 * 2);
+
+            this.addButton(new Button(2) {
+                @Override
+                public ItemStack getItem() {
+                    return ItemUtil.create(Material.WOODEN_SWORD,
+                            "&aDisney Land",
+                            "&7Experience the magic of the Disney parks.",
+                            "&7Rides, shows, memories, and much more.");
+                }
+
+                @Override
+                public void onClick(Player player) {
+                    // Warp to DL
+                }
+            });
+
+            this.addButton(new Button(4) {
+                @Override
+                public ItemStack getItem() {
+                    return ItemUtil.create(Material.DIAMOND_SWORD,
+                            "&aWalt Disney World",
+                            "&7Experience the magic of the Disney parks.",
+                            "&7Rides, shows, memories, and much more.");
+                }
+
+                @Override
+                public void onClick(Player player) {
+                    // Warp to WDW
+                }
+            });
+
+            this.addButton(new Button(6) {
+                @Override
+                public ItemStack getItem() {
+                    return ItemUtil.create(Material.RED_BED,
+                            "&aResorts",
+                            "&7Choose a place to stay in",
+                            "&7one of the many resorts.");
+                }
+
+                @Override
+                public void onClick(Player player) {
+                    // Warp to DL
+                }
+            });
+
+            this.addButton(new Button(13) {
+                @Override
+                public ItemStack getItem() {
+                    return Item.backButton;
+                }
+
+                @Override
+                public void onClick(Player player) {
+                    new MagicBandMenu(player).displayTo(player);
+                }
+            });
+        }
     }
 }

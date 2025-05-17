@@ -66,6 +66,10 @@ public class HotbarListener implements Listener {
         if (!(event.getWhoClicked() instanceof Player player)) return;
         ItemStack current = event.getCurrentItem();
         if (hotbarManager.getItemFromStack(current) != null) {
+            if (player.getGameMode() == GameMode.CREATIVE) {
+                event.setCancelled(false);
+                return;
+            }
             event.setCancelled(true);
         }
     }
@@ -73,6 +77,10 @@ public class HotbarListener implements Listener {
     @EventHandler
     public void onDrop(PlayerDropItemEvent event) {
         if (hotbarManager.getItemFromStack(event.getItemDrop().getItemStack()) != null) {
+            if (event.getPlayer().getGameMode() == GameMode.CREATIVE) {
+                event.setCancelled(false);
+                return;
+            }
             event.setCancelled(true);
         }
     }

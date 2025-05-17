@@ -32,7 +32,7 @@ navigation:
   material: NETHER_STAR
   name: "&9Navigation"
   actions:
-    - message: "&cNavigation coming soon!"
+    - openMenu:NavigationMenu
 
 cosmetics:
   material: ENDER_CHEST
